@@ -32,14 +32,18 @@ public class Anagram {
 		str2=preProcess(str2);
 		int count1 =0;
 		int count2 =0;
-		char c = str1.charAt(0);
 		int length1 = str1.length();
 		int length2 = str2.length();
-		if (length1!=length2) {
-			return false;
+		if (length1==0 && length2==0) {
+			return true;
 		}
+		char c = str1.charAt(0);
 		for (int i=0; i<length1; i++) {
 			c = str1.charAt(i);
+			if (c== ' ') {
+				i++;
+				c = str1.charAt(i);
+			}
 			for (int j=0; j<length1; j++) {
 				if (c == str1.charAt(j)) {
 					count1++;
@@ -65,13 +69,16 @@ public class Anagram {
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
 		String newStr = "";
+		if (str.length()==0) {
+			return str;
+		}
 		char c = str.charAt(0);
 		for (int i=0; i<str.length(); i++) {
 			c=  str.charAt(i);
 			if (c>='A' && c<='Z') {
 				c= (char)(c +32);
 			}
-			if ((c>='a' && c<='z')||(c>='0' && c<='9')) {
+			if ((c>='a' && c<='z')||(c>='0' && c<='9') || c==' ') {
 				newStr = newStr + c;
 			}
 
